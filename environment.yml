@@ -1,0 +1,10 @@
+name: MPP
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - seaborn>=0.11
+  - rdkit>=2020.03
+  - matplotlib>=3.2,<3.3
+  - scikit-learn
+  - python=3.8
