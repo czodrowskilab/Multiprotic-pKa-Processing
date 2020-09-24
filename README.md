@@ -12,9 +12,9 @@ For cleaning and filtering the tool performs the following steps:
 * Protonation at pH 7.4
 
 To get annotations about the (de-)protonation site of every p*K*<sub>a</sub> value, two major 
-problems had to be solved: Localization of the titratable groups without licensed software and the once-only assignment of the experimental values to the corresponding groups for all datasets. 
+problems have to be solved: Localization of the titratable groups without licensed software and the once-only assignment of the experimental values to the corresponding groups for all datasets. 
 
-For the localization part the tools *ChemAxon Marvin*<sup>[1]</sup> and *Dimorphite-DL*<sup>[2]</sup> is used to compile a list of SMARTS pattern that catch most of all groups in the dataset. Finally, the *Marvin* predictions are used to assign the experimental values to the corresponding groups while removing outliers. The resulting data set can be used as a starting point for machine learning in a following step.
+For the localization part the tools *ChemAxon Marvin*<sup>[1]</sup> and *Dimorphite-DL*<sup>[2]</sup> are used to compile a list of SMARTS pattern that catch most of all groups in the given dataset. Finally, the *Marvin* predictions are used to assign the experimental values to the corresponding groups while removing outliers. The resulting data set can be used as a starting point for machine learning in a following step.
 
 
 ## Prerequisites
