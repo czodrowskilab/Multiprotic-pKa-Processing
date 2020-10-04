@@ -1,0 +1,3 @@
+[submodule "dimorphite_dl"]
+	path = dimorphite_dl
+	url = https://git.durrantlab.pitt.edu/jdurrant/dimorphite_dl.git
