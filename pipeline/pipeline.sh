@@ -3,7 +3,7 @@
 readonly USAGE="\nUsage: bash pipeline.sh --train SDF1 [SDF2 SDF3 ...] [--test SDF1 [SDF2 SDF3 ...]] [--grouping SDF1 [SDF2 SDF3 ...]]\n\n"
 
 if [ $# -eq 0 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-  echo "$USAGE"
+  printf "$USAGE"
   exit 0
 fi
 
@@ -13,6 +13,7 @@ if [ -z "$PKA_CODEBASE" ]; then
 fi
 
 export PYTHONUNBUFFERED=1
+export PYTHONPATH="$PKA_CODEBASE:$PYTHONPATH"
 
 train=0
 test=0
@@ -47,7 +48,7 @@ for sdf in "$@"; do
     *)
       if [ $train -eq 0 ] && [ $test -eq 0 ] && [ $grouping -eq 0 ]; then
         printf "\nInvalid call!"
-        echo "$USAGE"
+        printf "$USAGE"
         exit 1
       fi
       if [ $train -eq 1 ]; then
@@ -63,7 +64,7 @@ done
 
 if [ ${#train_files[@]} -eq 0 ]; then
   printf "\nInvalid call!"
-  echo "$USAGE"
+  printf "$USAGE"
   exit 1
 fi
 
@@ -85,7 +86,7 @@ for sdf in "${test_files[@]}" "$train_file" "$grouping_file"; do
   echo
   echo "Cleaning and filtering ($(basename "$sdf"))..."
   cm_filename="$(basename "$sdf" .sdf)_cleaned_unique.sdf"
-  python "$PKA_CODEBASE/pipeline/gen_clean_unique_multi_dataset.py" "$sdf" "$cm_filename" || exit 2
+  python "$PKA_CODEBASE/pipeline/gen_clean_unique_dataset.py" "$sdf" "$cm_filename" || exit 2
   if [ "$sdf" == "$train_file" ]; then
     train_file="$cm_filename"
   elif [ "$sdf" == "$grouping_file" ]; then
