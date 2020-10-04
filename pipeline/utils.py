@@ -109,8 +109,8 @@ def topx_plot(s: pd.Series, n: int, pad_xlabels: bool = False, xlabels: bool = T
     pad = yi / 100
     for i, x in enumerate(s.values):
         ax.text(i, x + pad, x, ha='center')
-    ax.text(0.79, 0.95, f'Overall groups: {na}\nUnique groups: {ng}', transform=ax.transAxes,
-            horizontalalignment='left', verticalalignment='top')
+    ax.text(0.98, 0.95, f'Overall groups: {na}\nUnique groups: {ng}', transform=ax.transAxes,
+            horizontalalignment='right', verticalalignment='top')
     if pad_xlabels and xlabels:
         for i, tick in enumerate(ax.get_xaxis().get_major_ticks()):
             if i % 2 != 0:
@@ -282,7 +282,7 @@ def plot_corr(plot_df: pd.DataFrame, reg_line: bool = True, connect_grps: Dict[A
         sns.regplot(data=plot_df, x='Experimental pKa', y='Marvin pKa', marker='.', ci=None, scatter=False,
                     line_kws=dict(color=reg_col, lw='1'))
     sns.scatterplot(data=plot_df, x='Experimental pKa', y='Marvin pKa', hue='Group Count' if hue else None,
-                    legend='full' if hue else False, edgecolor="none", palette=colors if hue else None, s=5)
+                    legend='full' if hue else False, edgecolor='none', palette=colors if hue else None, s=5)
     plt.xlim(1, 13)
     plt.ylim(1, 13)
     plt.legend(bbox_to_anchor=(1.02, 1), loc=2, borderaxespad=0.)
@@ -304,7 +304,7 @@ def plot_corr(plot_df: pd.DataFrame, reg_line: bool = True, connect_grps: Dict[A
 def plot_corr_joint(plot_df: pd.DataFrame, reg_line: bool = True, connect_grps: Dict[Any, List[int]] = None,
                     hue: bool = True, reg_col: str = 'red', colors: List = None) -> plt.Figure:
     jg = sns.jointplot(data=plot_df, x='Experimental pKa', y='Marvin pKa', kind='scatter',
-                       hue='Group Count' if hue else None, edgecolor="none", palette=colors if hue else None, s=5,
+                       hue='Group Count' if hue else None, edgecolor='none', palette=colors if hue else None, s=5,
                        xlim=(1, 13), ylim=(1, 13), height=6)
     jg.fig.set_dpi(150)
     ax = sns.lineplot(x=[1, 13], y=[1, 13], color='black', lw='1', ax=jg.ax_joint)
@@ -314,9 +314,9 @@ def plot_corr_joint(plot_df: pd.DataFrame, reg_line: bool = True, connect_grps: 
                     line_kws=dict(color=reg_col, lw='1'), ax=jg.ax_joint)
     jg.ax_joint.set_xlim(1, 13)
     jg.ax_joint.set_ylim(1, 13)
-    jg.ax_joint.legend(bbox_to_anchor=(1.035, 1.205), loc=2, borderaxespad=0., ncol=2)
-    jg.ax_joint.xlabel('Experimental p$K$ₐ')
-    jg.ax_joint.ylabel('Marvin p$K$ₐ')
+    jg.ax_joint.legend(bbox_to_anchor=(1.035, 1.205), loc=2, borderaxespad=0.0, ncol=2)
+    jg.ax_joint.set_xlabel('Experimental p$K$ₐ')
+    jg.ax_joint.set_ylabel('Marvin p$K$ₐ')
 
     if connect_grps is not None:
         grp = plot_df.groupby('ID').agg(list)
