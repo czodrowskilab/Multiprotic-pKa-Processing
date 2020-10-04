@@ -463,8 +463,6 @@ def main(args: Namespace) -> None:
     args : Namespace
         Namespace object containing the parsed commandline arguments
     """
-    print(' '.join(argv) + '\n')
-
     df = read_dataset(args.infile)
     print(f'Initial: {len(df)}')
 

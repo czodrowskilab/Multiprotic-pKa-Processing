@@ -84,7 +84,7 @@ def topx_plot(s: pd.Series, n: int, pad_xlabels: bool = False, xlabels: bool = T
     smis = s.index
     counts = s.values
     fig = plt.figure(figsize=(10, 5), dpi=150)
-    ax = sns.barplot(smis, counts)
+    ax = sns.barplot(x=smis, y=counts)
     pad = 50
     xl = 'Group'
     t = 'groups'
@@ -178,7 +178,7 @@ def plot_group_grid(radius: int, topx: int, grp_dict: Dict[int, pd.Series], name
     topx_smi = [s for s in list(grp_dict[radius].keys())[:topx]]
     topx_mols = [Chem.MolFromSmiles(s, sanitize=False) for s in topx_smi]
     fig = mol_to_grid_image(topx_mols, 6, 8, text=text)
-    fig.savefig(f'{name}_R{radius}_top{topx}.svg')
+    fig.savefig(f'{name}_R{radius}_top{topx}.svg', bbox_inches='tight')
 
 
 def export_smarts_list(path: str, radius: int, topx: int, dict_list: List[Dict[int, pd.Series]]) -> Set[str]:
@@ -244,7 +244,7 @@ def validation_plot(scores: Dict[str, Dict[str, int]], df_len: int, times: Dict[
         ax_t.bar(ind, times, times_width)
         ax_t.text(-1.12, ax_t.get_ylim()[1] / 2, 'Times', verticalalignment='center')
         for i in ind:
-            ax_t.text(i, ax_t.transAxes.transform((0, 1.3))[1], get_time_str(times[i]),
+            ax_t.text(i, ax_t.transLimits.inverted().transform((0, 1.0))[1], get_time_str(times[i]),
                       horizontalalignment='center', verticalalignment='bottom')
 
     ax.legend((p1[0], p2[0], p3[0]), ('Less', 'Exact', 'More'), loc='right', ncol=1, bbox_to_anchor=(1.1, 0.5))

@@ -33,9 +33,8 @@ def get_valid_atom_ids(df_: pd.DataFrame, trees) -> Tuple[List[str], float]:
                     ail.append(match[0] + 1)
         ail = [str(x) for x in sorted(list(set(ail)))]
         atom_ids.append(','.join(ail))
-    t1 = time() - t0
-    print(f'Time: {t1:.2f}s')
-    return atom_ids, t1
+    t0 = time() - t0
+    return atom_ids, t0
 
 
 def get_matches(df: pd.DataFrame, sma_mols: Iterable[Any], col: str) -> float:
@@ -50,7 +49,6 @@ def get_matches(df: pd.DataFrame, sma_mols: Iterable[Any], col: str) -> float:
         ail = [str(x) for x in sorted(list(set(ail)))]
         atom_ids.append(','.join(ail))
     t0 = time() - t0
-    print(f'Time: {t0:.2f}s')
     df[col] = atom_ids
     return t0
 
