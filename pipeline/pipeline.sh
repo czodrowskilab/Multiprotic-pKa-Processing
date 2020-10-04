@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-readonly USAGE="\nUsage: %s --train SDF1 [SDF2 SDF3 ...] [--test SDF1 [SDF2 SDF3 ...]] [--grouping SDF1 [SDF2 SDF3 ...]]\n\n"
+readonly USAGE="\nUsage: bash pipeline.sh --train SDF1 [SDF2 SDF3 ...] [--test SDF1 [SDF2 SDF3 ...]] [--grouping SDF1 [SDF2 SDF3 ...]]\n\n"
 
 if [ $# -eq 0 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-  printf "$USAGE" "$0"
+  echo "$USAGE"
   exit 0
 fi
 
@@ -47,7 +47,7 @@ for sdf in "$@"; do
     *)
       if [ $train -eq 0 ] && [ $test -eq 0 ] && [ $grouping -eq 0 ]; then
         printf "\nInvalid call!"
-        printf "$USAGE" "$0"
+        echo "$USAGE"
         exit 1
       fi
       if [ $train -eq 1 ]; then
@@ -63,7 +63,7 @@ done
 
 if [ ${#train_files[@]} -eq 0 ]; then
   printf "\nInvalid call!"
-  printf "$USAGE" "$0"
+  echo "$USAGE"
   exit 1
 fi
 
