@@ -1,4 +1,4 @@
 [submodule "dimorphite_dl"]
 	path = dimorphite_dl
 	url = https://git.durrantlab.pitt.edu/jdurrant/dimorphite_dl.git
-    branch = 1.2.4
+	branch = 1.2.4
