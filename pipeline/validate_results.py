@@ -6,7 +6,7 @@ from rdkit import RDLogger
 from rdkit.Chem import PandasTools
 from rdkit.Chem.MolStandardize.rdMolStandardize import Uncharger
 
-from .utils import *
+from pipeline.utils import *
 
 RDLogger.logger().setLevel(RDLogger.CRITICAL)
 sns.set()

@@ -5,7 +5,7 @@ from sys import argv
 import numpy as np
 import seaborn as sns
 
-from .utils import split_tol, plot_corr, plot_corr_joint, get_plot_data
+from pipeline.utils import split_tol, plot_corr, plot_corr_joint, get_plot_data
 
 sns.set()
 

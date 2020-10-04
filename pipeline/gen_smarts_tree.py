@@ -5,7 +5,7 @@ from rdkit import RDLogger
 from rdkit.Chem import PandasTools
 from rdkit.Chem.MolStandardize.rdMolStandardize import Uncharger
 
-from .utils import *
+from pipeline.utils import *
 
 RDLogger.logger().setLevel(RDLogger.CRITICAL)
 sns.set()
@@ -67,7 +67,7 @@ def do_radii_test(df: pd.DataFrame, radii: List[int], topx: int,
         print(group_summary_str(grp_dict[radius]))
         xl = xlabels if radius != 0 else True
         pxl = xlabels if radius != 0 else False
-        fig = topx_plot(grp_dict[radius], topx, radius, pad_xlabels=pxl, xlabels=xl)
+        fig = topx_plot(grp_dict[radius], topx, pad_xlabels=pxl, xlabels=xl)
         fig.savefig(f'{name}_R{radius}.svg')
     return grp_dict
 
@@ -121,8 +121,8 @@ def main() -> None:
     fig = sat_plot(list(grp_dict_didl.values()), list(grp_dict_didl.keys()), 50)
     fig.savefig('didl_sat_curve.svg')
 
-    plot_group_grid(3, 48, grp_dict_marvin, 'marvin')
-    plot_group_grid(3, 48, grp_dict_didl, 'didl')
+    plot_group_grid(3, 48, grp_dict_marvin, 'marvin', False)
+    plot_group_grid(3, 48, grp_dict_didl, 'didl', False)
 
     sma_set = export_smarts_list('titratable_groups_SMARTS_R1.csv', 1, 20, [grp_dict_marvin, grp_dict_didl])
 

@@ -109,7 +109,7 @@ def topx_plot(s: pd.Series, n: int, pad_xlabels: bool = False, xlabels: bool = T
     pad = yi / 100
     for i, x in enumerate(s.values):
         ax.text(i, x + pad, x, ha='center')
-    ax.text(0.79, 0.95, f'Overall groups: {na}\nUnique groups: {ng}', fontsize=18, transform=ax.transAxes,
+    ax.text(0.79, 0.95, f'Overall groups: {na}\nUnique groups: {ng}', transform=ax.transAxes,
             horizontalalignment='left', verticalalignment='top')
     if pad_xlabels and xlabels:
         for i, tick in enumerate(ax.get_xaxis().get_major_ticks()):
@@ -136,9 +136,9 @@ def sat_plot(sl: List[pd.Series], rl: List[int], n: int) -> plt.Figure:
         df['%'] = pv
         adf = adf.append(df)
     adf = adf.astype({'%': float, 'Radius': int, 'Top X': int})
-    ax = sns.lineplot(x='Top X', y='%', hue='Radius', data=adf, palette='bright', marker='.')
+    ax = sns.lineplot(x='Top X', y='%', hue='Radius', data=adf, palette='bright', marker='.', lw=3, ms=10)
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles=handles[1:], labels=labels[1:], title='Radius',
+    ax.legend(handles=handles, labels=labels, title='Radius',
               loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
     plt.xticks(range(0, n + 1, 5))
     plt.yticks(range(0, 101, 10))
@@ -150,8 +150,8 @@ def sat_plot(sl: List[pd.Series], rl: List[int], n: int) -> plt.Figure:
 
 def mol_to_grid_image(mols: List[Mol], nrows: int, ncols: int, figsize: Tuple[int, int] = (16, 8),
                       text: bool = True) -> plt.Figure:
-    im_list = [Draw.MolToImage(m) for m in mols]
-    fig = plt.figure(figsize=figsize, dpi=300)
+    im_list = [Draw.MolToImage(m, (600, 600)) for m in mols]
+    fig = plt.figure(figsize=figsize, dpi=600)
     grid = ImageGrid(fig, 111,  # similar to subplot(111)
                      nrows_ncols=(nrows, ncols),
                      axes_pad=(0.1, 0.3 if text else 0.1),  # pad between axes in inch.
@@ -174,10 +174,10 @@ def mol_to_grid_image(mols: List[Mol], nrows: int, ncols: int, figsize: Tuple[in
     return fig
 
 
-def plot_group_grid(radius: int, topx: int, grp_dict: Dict[int, pd.Series], name: str) -> None:
+def plot_group_grid(radius: int, topx: int, grp_dict: Dict[int, pd.Series], name: str, text: bool = True) -> None:
     topx_smi = [s for s in list(grp_dict[radius].keys())[:topx]]
     topx_mols = [Chem.MolFromSmiles(s, sanitize=False) for s in topx_smi]
-    fig = mol_to_grid_image(topx_mols, 6, 8)
+    fig = mol_to_grid_image(topx_mols, 6, 8, text=text)
     fig.savefig(f'{name}_R{radius}_top{topx}.svg')
 
 
@@ -244,8 +244,8 @@ def validation_plot(scores: Dict[str, Dict[str, int]], df_len: int, times: Dict[
         ax_t.bar(ind, times, times_width)
         ax_t.text(-1.12, ax_t.get_ylim()[1] / 2, 'Times', verticalalignment='center')
         for i in ind:
-            ax_t.text(i, ax_t.get_ylim()[1] + 80, get_time_str(times[i]),
-                      horizontalalignment='center', verticalalignment='center')
+            ax_t.text(i, ax_t.transAxes.transform((0, 1.3))[1], get_time_str(times[i]),
+                      horizontalalignment='center', verticalalignment='bottom')
 
     ax.legend((p1[0], p2[0], p3[0]), ('Less', 'Exact', 'More'), loc='right', ncol=1, bbox_to_anchor=(1.1, 0.5))
 
