@@ -1,0 +1,5 @@
+;GCN;GCN with PT*;QML;Random Forest
+Internal Split;0.58;0.54;0.69;0.72
+Settimo et al.;0.59;0.58;1.23;0.55
+Novartis;0.90;0.90;1.16;1.12
+Roche;0.89;0.87;1.08;0.92
