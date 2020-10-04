@@ -30,6 +30,10 @@ For the whole pipeline, *ChemAxon Marvin*<sup>[1]</sup>, *Dimorphite-DL*<sup>[2]
 
 Of course you also need the code from this repository folder.
 
+**Important note**: You should clone this repository with the command 
+`git clone --recurse-submodules https://github.com/czodrowskilab/Multiprotic-pKa-Processing.git` to automatically
+fetch the integrated submodule *Dimorphite-DL* (https://git.durrantlab.pitt.edu/jdurrant/dimorphite_dl).
+
 ### Installing
 
 First of all you need a working Miniconda/Anaconda installation. You can get
@@ -57,7 +61,7 @@ Also the environment variables `OE_LICENSE` (containing the path to your *OpenEy
 file) and `JAVA_HOME` (referring to the *Java* installation folder, which is needed for 
 `cxcalc`) have to be set.
 
-After preparation you can display a small usage information with `# COMING SOON`.
+After preparation you can display a small usage information with `bash pipeline.sh --help`.
 Example call:
 ```bash
 # COMING SOON
