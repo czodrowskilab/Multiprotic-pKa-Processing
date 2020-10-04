@@ -315,6 +315,8 @@ def plot_corr_joint(plot_df: pd.DataFrame, reg_line: bool = True, connect_grps: 
     jg.ax_joint.set_xlim(1, 13)
     jg.ax_joint.set_ylim(1, 13)
     jg.ax_joint.legend(bbox_to_anchor=(1.035, 1.205), loc=2, borderaxespad=0., ncol=2)
+    jg.ax_joint.xlabel('Experimental p$K$ₐ')
+    jg.ax_joint.ylabel('Marvin p$K$ₐ')
 
     if connect_grps is not None:
         grp = plot_df.groupby('ID').agg(list)

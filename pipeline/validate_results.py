@@ -83,7 +83,7 @@ def main():
     sma_df = pd.read_csv(argv[2], header=None, names=['SMARTS'])
     sma_df['ROMol'] = [Chem.MolFromSmarts(s) for s in sma_df.SMARTS]  # Atom with ID 0 is titratable atom
     fig = mol_to_grid_image(sma_df.ROMol, int(np.ceil(len(sma_df.ROMol) / 6)), 6)
-    fig.savefig(argv[2].replace('csv', 'svg'))
+    fig.savefig(argv[2].replace('csv', 'svg'), bbox_inches='tight')
 
     scores_dict = ddict(dict)
     measured_times = {}
