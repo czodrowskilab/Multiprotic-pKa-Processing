@@ -61,16 +61,18 @@ Also the environment variables `OE_LICENSE` (containing the path to your *OpenEy
 file) and `JAVA_HOME` (referring to the *Java* installation folder, which is needed for 
 `cxcalc`) have to be set.
 
+Additionally, the path to the repository folder needs to be specified with the environment variable `PKA_CODEBASE`, e.g.
+```bash
+export PKA_CODEBASE="/full/path/to/repository/folder"
+```
+
 After preparation you can display a small usage information with `bash pipeline.sh --help`.
 Example call:
 ```bash
-# COMING SOON
+bash pipeline.sh --train chembl26.sdf datawarrior.sdf --test sample6.sdf
 ```
 
-NOTE: The pipeline script must be located in the repository folder to use all associated Python scripts. Alternatively, the path to the repository folder can be specified with the environment variable `# COMING SOON`, e.g.
-```bash
-# COMING SOON
-```
+TO BE EXTENDED
 
 ## Datasets
 
