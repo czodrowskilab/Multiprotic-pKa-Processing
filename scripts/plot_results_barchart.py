@@ -33,7 +33,8 @@ for ix, col in enumerate(cols):
 
 plt.ylabel('MAE')
 plt.xlabel('Testsets', labelpad=10)
-plt.xticks(index + bar_width * 3 / 1.5, [x.replace(' ', '\n', 1) for x in vals.index])
+offset = bar_width / 2 if len(cols) % 2 == 0 else 0
+plt.xticks(index + len(cols) / 2 * bar_width - offset, [x.replace(' ', '\n', 1) for x in vals.index], ha='center')
 plt.legend(bbox_to_anchor=(1.0, 1.02), loc='upper left')
 
 fig.savefig('last_plot_V3.svg', bbox_inches='tight')
