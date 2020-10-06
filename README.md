@@ -1,4 +1,6 @@
 # Multiprotic p*K*<sub>a</sub> Processing
+![GitHub](https://img.shields.io/github/license/czodrowskilab/Multiprotic-pKa-Processing)
+![GitHub](https://img.shields.io/badge/Stage-BETA-blue)
 
 Most data sets of experimental p*K*<sub>a</sub> values of multiprotic molecules lack information about the associated (de-)protonation sites. However, this information is often necessary to train appropriate prediction models which show the corresponding (de-)protonation sites in addition to the predicted p*K*<sub>a</sub> values or whose prediction is based on this information. Additionally, the datasets are often not cleaned or filtered in any way, contain duplicated entries or different tautomers of the same molecule. The tool presented here tries to solve these problems to generate a cleaned, standardized and annotated data set that can be used for different machine learning approaches. 
 
