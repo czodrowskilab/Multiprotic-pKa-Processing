@@ -1,0 +1,8 @@
+1.	Noroozi, J. & R. Smith, W. Prediction of Alkanolamine pKa Values by Combined Molecular Dynamics Free Energy Simulations and ab Initio Calculations. J. Chem. &amp; Eng. Data 0, (2019).
+2.	C. Lee, A., Yu, J. & M. Crippen, G. pKa Prediction of Monoprotic Small Molecules the SMARTS Way. J. Chem. Inf. Model. 48, 2042–2053 (2008).
+3.	Manchester, J., Walkup, G., Rivin, O. & You, Z. Evaluation of pKa Estimation Methods on 211 Druglike Compounds. J. Chem. Inf. Model. 50, 565–571 (2010).
+4.	Manallack, D. T. The pKa Distribution of Drugs: Application to Drug Discovery. Perspect. Medicin. Chem. 1, 1177391X0700100 (2007).
+5.	Liao, C. & Nicklaus, M. C. Comparison of nine programs predicting pKa values of pharmaceutical substances. J. Chem. Inf. Model. 49, 2801–2812 (2009).
+6.	Klicić, J. J., Friesner, R. A., Liu, S.-Y. & Guida, W. C. Accurate Prediction of Acidity Constants in Aqueous Solution via Density Functional Theory and Self-Consistent Reaction Field Methods. J. Phys. Chem. 106, 1327–1335 (2002).
+7.	Balogh, G. T., Tarcsay, Á. & Keserű, G. M. Comparative evaluation of pKa prediction tools on a drug discovery dataset. J. Pharm. Biomed. Anal. 67–68, 63–70 (2012).
+8.	Morgenthaler, M. et al. Predicting and tuning physicochemical properties in lead optimization: Amine basicities. ChemMedChem 2, 1100–1115 (2007).

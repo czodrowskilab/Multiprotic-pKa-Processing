@@ -30,6 +30,10 @@ For the whole pipeline, *ChemAxon Marvin*<sup>[1]</sup>, *Dimorphite-DL*<sup>[2]
 
 Of course you also need the code from this repository folder.
 
+**Important note**: You should clone this repository with the command 
+`git clone --recurse-submodules https://github.com/czodrowskilab/Multiprotic-pKa-Processing.git` to automatically
+fetch the integrated submodule *Dimorphite-DL* (https://git.durrantlab.pitt.edu/jdurrant/dimorphite_dl).
+
 ### Installing
 
 First of all you need a working Miniconda/Anaconda installation. You can get
@@ -57,23 +61,33 @@ Also the environment variables `OE_LICENSE` (containing the path to your *OpenEy
 file) and `JAVA_HOME` (referring to the *Java* installation folder, which is needed for 
 `cxcalc`) have to be set.
 
-After preparation you can display a small usage information with `# COMING SOON`.
-Example call:
+Additionally, the path to the repository folder needs to be specified with the environment variable `PKA_CODEBASE`, e.g.
 ```bash
-# COMING SOON
+export PKA_CODEBASE="/full/path/to/repository/folder"
 ```
 
-NOTE: The pipeline script must be located in the repository folder to use all associated Python scripts. Alternatively, the path to the repository folder can be specified with the environment variable `# COMING SOON`, e.g.
+After preparation you can display a small usage information with `bash pipeline.sh --help`.
+Example call:
 ```bash
-# COMING SOON
+bash pipeline.sh --train chembl26.sdf datawarrior.sdf --test sample6.sdf
 ```
+
+If you want to use different sets of molecules for the generation of the SMARTS patterns you can
+use the optional parameter `--grouping <SDF> <SDF> ...`. If not specified all training and test sets will
+be used for the SMARTS pattern generation.
+
+**NOTE:** For now only the evaluation aspect is implemented. The training and test datasets are not
+treated seperatly regarding the value assignment. **This will be implemented very soon!**
 
 ## Datasets
 
-1. `Settimo_et_al.sdf` - Manually combined literature p<i>K</i><sub>a</sub> data<sup>[4]</sup>
+1. `settimo_et_al.sdf` - Manually combined literature p<i>K</i><sub>a</sub> data<sup>[4]</sup>
 2. `chembl26.sdf` - Experimental p<i>K</i><sub>a</sub> data extracted from ChEMBL26<sup>[5]</sup>
 3. `datawarrior.sdf` - p<i>K</i><sub>a</sub> data shipped with DataWarrior<sup>[6]</sup>
-4. TO BE EXTENDED
+4. `hunt_et_al.sdf` - Extracted from Hunt et al. (2020)<sup>[7]</sup>
+5. `literature_compilation.sdf` - Compilation of experimental datapoints from multiple publications 
+([list of publications](datasets/literature_compilation_publications.txt))
+6. `sampl6.sdf` - Experimental data from SAMPL6 challenge<sup>[8]</sup> ([LICENSE](datasets/sampl6.LICENSE))
 
 ## Authors
 
@@ -86,17 +100,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## References
 
-[1] *Marvin* 20.1.0, 2020, ChemAxon, [http://www.chemaxon.com](http://www.chemaxon.com)<br>
+[1] *Marvin* 20.1.0, 2020, ChemAxon, [http://www.chemaxon.com](http://www.chemaxon.com) <br>
 [2] Ropp PJ, Kaminsky JC, Yablonski S, Durrant JD (2019) Dimorphite-DL: An
 open-source program for enumerating the ionization states of drug-like small
-molecules. J Cheminform 11:14. doi:10.1186/s13321-019-0336-9.<br>
+molecules. J Cheminform 11:14. doi:10.1186/s13321-019-0336-9. <br>
 [3] *QUACPAC* 2.1.0.4: OpenEye Scientific Software, Santa Fe, NM. [http://www.eyesopen.com](http://www.eyesopen.com) <br>
 [4] Settimo, L., Bellman, K. & Knegtel, R.M.A. Pharm Res (2014) 31: 1082. 
 [https://doi.org/10.1007/s11095-013-1232-z](https://doi.org/10.1007/s11095-013-1232-z) <br>
 [5] Gaulton A, Hersey A, Nowotka M, Bento AP, Chambers J, Mendez D, Mutowo P, Atkinson F, 
 Bellis LJ, Cibrián-Uhalte E, Davies M, Dedman N, Karlsson A, Magariños MP, Overington JP, 
 Papadatos G, Smit I, Leach AR. (2017) 'The ChEMBL database in 2017.' Nucleic Acids Res., 
-45(D1) D945-D954.<br>
+45(D1) D945-D954. <br>
 [6] Thomas Sander, Joel Freyss, Modest von Korff, Christian Rufener. DataWarrior: An Open-Source 
 Program For Chemistry Aware Data Visualization And Analysis. J Chem Inf Model 
-2015, 55, 460-473, doi 10.1021/ci500588j<br>
+2015, 55, 460-473, doi 10.1021/ci500588j <br>
+[7] Hunt, P. et al. Predicting pKa Using a Combination of Semi-Empirical Quantum Mechanics and Radial 
+Basis Function Methods. J. Chem. Inf. Model. 60, 2989–2997 (2020). <br>
+[8] Mehtap Isik, Andrea Rizzi, David L. Mobley, Michael Shirts, & Danielle Teresa Bergazin. (2019, April 25). 
+MobleyLab/SAMPL6: SAMPL6 Part II - Release the evaluation results of log *P* predictions (Version v1.16). Zenodo. 
+http://doi.org/10.5281/zenodo.2651393 <br>
