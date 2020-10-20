@@ -116,14 +116,6 @@ def main():
     measured_times[scores_key] = get_matches(df, r3_sma_mols, atom_id_col)
     add_counts_to_dict(df, scores_dict, atom_id_col, scores_key)
 
-    # check with radius 3 smiles from tree
-    scores_key = 'R3_oV_SMI'
-    atom_id_col = 'smi_atom_ids_r3'
-    r3_smi_mols = [Chem.MolFromSmiles(s, sanitize=False) for s in r3_sma]
-
-    measured_times[scores_key] = get_matches(df, r3_smi_mols, atom_id_col)
-    add_counts_to_dict(df, scores_dict, atom_id_col, scores_key)
-
     # TODO Convert to loop
     # check with children radius 3 validation from tree
     atom_id_col = 'sma_atom_ids_vr3'
