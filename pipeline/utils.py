@@ -1,10 +1,7 @@
 from collections import defaultdict as ddict
-from copy import copy
 from typing import List, Dict, Any, Iterable, Set, Tuple, Iterator
 
 import matplotlib
-
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -14,6 +11,8 @@ from mpl_toolkits.axes_grid1 import ImageGrid, make_axes_locatable
 from rdkit import Chem
 from rdkit.Chem import Draw, Mol
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+matplotlib.use('agg')
 
 
 class Node:
@@ -206,16 +205,8 @@ def get_time_str(s: float) -> str:
     return f'{r}{int(s)}s'
 
 
-def validation_plot(scores: Dict[str, Dict[str, int]], df_len: int, times: Dict[str, float] = None,
-                    no_smi: bool = True) -> plt.Figure:
-    if no_smi:
-        scores = copy(scores)
-        del scores['R3_oV_SMI']
-        if times:
-            times = copy(times)
-            del times['R3_oV_SMI']
-
-    clear_names = {'R1_oV': 'R1', 'R3_oV_SMA': 'R3', 'R1_V-R3': 'R1 with\nR3 valid.', 'R1_V-R4': 'R1 with\nR4 valid.',
+def validation_plot(scores: Dict[str, Dict[str, int]], df_len: int, times: Dict[str, float] = None) -> plt.Figure:
+    clear_names = {'R1_oV': 'R1', 'R3_oV': 'R3', 'R1_V-R3': 'R1 with\nR3 valid.', 'R1_V-R4': 'R1 with\nR4 valid.',
                    'R1_V-R5': 'R1 with\nR5 valid.', 'R1_V-R6': 'R1 with\nR6 valid.'}
 
     ind = np.arange(len(scores))

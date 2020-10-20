@@ -4,6 +4,7 @@ from sys import argv
 
 import numpy as np
 import seaborn as sns
+from rdkit.Chem import PandasTools
 
 from pipeline.utils import split_tol, plot_corr, plot_corr_joint, get_plot_data
 
@@ -16,8 +17,10 @@ def main():
     pka_upper_cut = 12 + exp_tol
     pka_lower_cut = 2 - exp_tol
     max_err = float(argv[3])
+    pkl_file = argv[4]
+    quick_run = int(argv[5])
 
-    with open('dataframe_with_locations.pkl', 'rb') as f:
+    with open(pkl_file, 'rb') as f:
         df = pkl.load(f)
     for col in ['apKa1', 'apKa2', 'apKa3', 'apKa4', 'bpKa1', 'bpKa2', 'bpKa3', 'bpKa4']:
         df[col] = df[col].astype(float)
@@ -114,15 +117,22 @@ def main():
     fig = plot_corr(plot_df, reg_line=False, colors=colors)
     fig.savefig(f'values_corr_G1-5_err_cut_{max_err}.svg', bbox_inches='tight')
 
-    outlier_df = df.loc[outlier_ix].copy()
-    outlier_df['diff'] = outlier_diff
-    outlier_df.sort_values('diff', ascending=False, inplace=True)
+    if not quick_run:
+        outlier_df = df.loc[outlier_ix].copy()
+        outlier_df['diff'] = outlier_diff
+        outlier_df.sort_values('diff', ascending=False, inplace=True)
+        with open('outlier_dataframe.pkl', 'wb') as f:
+            pkl.dump(outlier_df, f, protocol=pkl.HIGHEST_PROTOCOL)
 
-    with open('outlier_dataframe.pkl', 'wb') as f:
-        pkl.dump(outlier_df, f, protocol=pkl.HIGHEST_PROTOCOL)
+        with open('final_dataframe.pkl', 'wb') as f:
+            pkl.dump(df, f, protocol=pkl.HIGHEST_PROTOCOL)
 
-    with open('final_dataframe.pkl', 'wb') as f:
-        pkl.dump(df, f, protocol=pkl.HIGHEST_PROTOCOL)
+    if quick_run:
+        df_out = df_sub.loc[:, ['ROMol', 'original_dataset', 'original_ID', atom_col, res_col]]
+        df_out.columns = ['ROMol', 'original_dataset', 'original_ID', 'atoms', 'pKa']
+        df_out.atoms = df_out.atoms.apply(lambda x: x.split(','))
+        PandasTools.WriteSDF(df_out, pkl_file.replace('df_with_loc_', '').replace('.pkl', '_final.sdf'),
+                             properties=df_out.columns, idName='RowID')
 
 
 if __name__ == '__main__':
