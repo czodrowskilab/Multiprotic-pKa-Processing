@@ -78,8 +78,14 @@ def main() -> None:
     if not (3 <= len(argv) <= 5):
         print('ERROR: Wrong number of arguments')
         exit(1)
-    radii_to_test = [int(x) for x in argv[3].split(',')] if len(argv) > 3 else [0, 1, 2, 3, 4, 5, 6]
-    trees_to_build = [int(x) for x in argv[4].split(',')] if len(argv) > 4 else [3, 4, 5, 6]
+    radii_to_test = sorted(set([int(x) for x in argv[3].split(',')] + [1])) if len(argv) > 3 else [0, 1, 2, 3, 4, 5, 6]
+    if len(argv) > 4:
+        if argv[4] == '-1':
+            trees_to_build = []
+        else:
+            trees_to_build = sorted(set([int(x) for x in argv[4].split(',')]))
+    else:
+        trees_to_build = [3, 4, 5, 6]
 
     # ChemAxon Marvin analysis
     marvin_df = PandasTools.LoadSDF(dataset).set_index('ID', verify_integrity=True)
