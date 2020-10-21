@@ -345,12 +345,15 @@ def get_plot_data(df: pd.DataFrame, res_column: str, min_grp: int = 1, max_grp: 
     if stats:
         print(f'Remaining mols: {len(set(ids))}')
         print(f'Remaining vals: {len(exp_single_vals)}\n')
-        print(f'Overall MAE:    {mean_absolute_error(exp_single_vals, pred_single_vals):.3f}')
-        print(f'Overall RMSE:   {mean_squared_error(exp_single_vals, pred_single_vals, squared=False):.3f}')
-        print(f'Overall R2:     {r2_score(exp_single_vals, pred_single_vals):.3f}')
-        print('Groups\tMolecules')
-        for i, r in plot_df['Group Count'].value_counts().iteritems():
-            print(f'{i}\t{int(r / int(i))}')
+        if len(exp_single_vals) == 0:
+            print('Skipping further statistics')
+        else:
+            print(f'Overall MAE:    {mean_absolute_error(exp_single_vals, pred_single_vals):.3f}')
+            print(f'Overall RMSE:   {mean_squared_error(exp_single_vals, pred_single_vals, squared=False):.3f}')
+            print(f'Overall R2:     {r2_score(exp_single_vals, pred_single_vals):.3f}')
+            print('Groups\tMolecules')
+            for i, r in plot_df['Group Count'].value_counts().iteritems():
+                print(f'{i}\t{int(r / int(i))}')
 
     colors = sns.color_palette('bright')[max(min_grp - 1, 0):]
     colors = colors[:len(plot_df['Group Count'].value_counts())]

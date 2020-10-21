@@ -83,21 +83,23 @@ def main():
     print(f'Experimental values missing: {n_missing} ({perc * n_missing:.2f}%)')
     print(f'Exact matches: {n_all - n_missing - n_skipped} ({perc * (n_all - n_missing - n_skipped):.2f}%)')
 
+    f_base = pkl_file.replace('df_with_loc_', '').replace('.pkl', '')
+
     df_sub = df.loc[~df.index.isin(missing + skipped)]
     plot_df, outlier_ix, colors = get_plot_data(df_sub, res_col, min_grp=1, max_grp=5)
     fig = plot_corr_joint(plot_df, reg_line=False, colors=colors)
-    fig.savefig('values_corr_G1-5_joined.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G1-5_joined.svg', bbox_inches='tight')
 
     fig = plot_corr(plot_df, reg_line=False, colors=colors)
-    fig.savefig('values_corr_G1-5.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G1-5.svg', bbox_inches='tight')
 
     plot_df, outlier_ix, colors = get_plot_data(df_sub, res_col, min_grp=2, max_grp=5, min_err=4)
     fig = plot_corr(plot_df, reg_line=False, connect_grps=outlier_ix, colors=colors)
-    fig.savefig('values_corr_G2-5_con.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G2-5_con.svg', bbox_inches='tight')
 
     plot_df, outlier_ix, colors = get_plot_data(df_sub, res_col, min_grp=3, max_grp=5, min_err=3)
     fig = plot_corr(plot_df, reg_line=False, connect_grps=outlier_ix, colors=colors)
-    fig.savefig('values_corr_G3-5_con.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G3-5_con.svg', bbox_inches='tight')
 
     outlier_ix = []
     outlier_diff = []
@@ -113,9 +115,9 @@ def main():
     df_sub = df.loc[~df.index.isin(missing + skipped + outlier_ix)]
     plot_df, _, colors = get_plot_data(df_sub, res_col)
     fig = plot_corr_joint(plot_df, reg_line=False, colors=colors)
-    fig.savefig(f'values_corr_G1-5_joined_err_cut_{max_err}.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G1-5_joined_err_cut_{max_err}.svg', bbox_inches='tight')
     fig = plot_corr(plot_df, reg_line=False, colors=colors)
-    fig.savefig(f'values_corr_G1-5_err_cut_{max_err}.svg', bbox_inches='tight')
+    fig.savefig(f'{f_base}_values_corr_G1-5_err_cut_{max_err}.svg', bbox_inches='tight')
 
     if not quick_run:
         outlier_df = df.loc[outlier_ix].copy()

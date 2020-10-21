@@ -78,7 +78,7 @@ def main() -> None:
     if not (3 <= len(argv) <= 5):
         print('ERROR: Wrong number of arguments')
         exit(1)
-    radii_to_test = sorted(set([int(x) for x in argv[3].split(',')] + [1])) if len(argv) > 3 else [0, 1, 2, 3, 4, 5, 6]
+
     if len(argv) > 4:
         if argv[4] == '-1':
             trees_to_build = []
@@ -86,6 +86,14 @@ def main() -> None:
             trees_to_build = sorted(set([int(x) for x in argv[4].split(',')]))
     else:
         trees_to_build = [3, 4, 5, 6]
+
+    radii_to_test = sorted(set(
+        [int(x) for x in argv[3].split(',')] + [1] + trees_to_build
+    )) if len(argv) > 3 else [0, 1, 2, 3, 4, 5, 6]
+
+    if (len(trees_to_build) != 0 and trees_to_build[0] < 0) or radii_to_test[0] < 0:
+        print('ERROR: Invalid radii')
+        exit(2)
 
     # ChemAxon Marvin analysis
     marvin_df = PandasTools.LoadSDF(dataset).set_index('ID', verify_integrity=True)
@@ -127,8 +135,11 @@ def main() -> None:
     fig = sat_plot(list(grp_dict_didl.values()), list(grp_dict_didl.keys()), 50)
     fig.savefig('didl_sat_curve.svg')
 
-    plot_group_grid(3, 48, grp_dict_marvin, 'marvin', False)
-    plot_group_grid(3, 48, grp_dict_didl, 'didl', False)
+    for r in radii_to_test:
+        if r == 0:
+            continue
+        plot_group_grid(r, 48, grp_dict_marvin, 'marvin', False)
+        plot_group_grid(r, 48, grp_dict_didl, 'didl', False)
 
     sma_set = export_smarts_list('titratable_groups_SMARTS_R1.csv', 1, 20, [grp_dict_marvin, grp_dict_didl])
 

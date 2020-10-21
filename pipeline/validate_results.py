@@ -108,9 +108,9 @@ def main():
 
     # reproduction of approach above with smarts tree
     if not quick_run:
-        scores_key = 'sma_atom_ids2'
-        get_matches(df, [t.mol for t in sma_tree_r3], scores_key)
-        n_exact_found2, n_all_found2 = get_n_found(df, scores_key)
+        atom_id_col = 'sma_atom_ids2'
+        get_matches(df, [t.mol for t in sma_tree_r3], atom_id_col)
+        n_exact_found2, n_all_found2 = get_n_found(df, atom_id_col)
         assert scores_dict[scores_key]['exact'] == n_exact_found2 and scores_dict[scores_key]['all'] == n_all_found2
 
     # check with radius 3 smarts from tree
@@ -166,7 +166,8 @@ def main():
 
     # Visualize
     fig = validation_plot(scores_dict, len(df), measured_times)
-    fig.savefig('validation_overview.svg')
+    f_name = 'validation_overview.svg' if not quick_run else f'validation_overview_{argv[1].replace(".sdf", "")}.svg'
+    fig.savefig(f_name)
 
     f_name = 'df_with_loc.pkl' if not quick_run else f'df_with_loc_{argv[1].replace(".sdf", "")}.pkl'
     with open(f_name, 'wb') as f:

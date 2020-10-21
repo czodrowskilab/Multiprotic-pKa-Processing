@@ -202,6 +202,7 @@ fi
 echo
 echo "Locate titratable groups for training dataset and test datasets..."
 for sdf in "${cu_test_files_no_td[@]}" "$train_file"; do
+  echo "## $sdf ##"
   python "$PKA_CODEBASE/pipeline/validate_results.py" "$sdf" "titratable_groups_SMARTS_R1.csv" "$atom_col_to_use" || exit 15
 done
 
@@ -214,5 +215,7 @@ fi
 echo
 echo "Assign values to titratable groups for training dataset and test datasets..."
 for sdf in "${cu_test_files_no_td[@]}" "$train_file"; do
+  echo
+  echo "## $sdf ##"
   python "$PKA_CODEBASE/pipeline/values_to_groups.py" "$atom_col_to_use" "$exp_tolerance" "$max_error_for_value_assignment" "df_with_loc_$(basename "$sdf" .sdf).pkl" 1 || exit 13
 done
