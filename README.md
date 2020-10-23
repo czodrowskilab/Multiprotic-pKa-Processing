@@ -78,8 +78,22 @@ If you want to use different sets of molecules for the generation of the SMARTS 
 use the optional parameter `--grouping <SDF> <SDF> ...`. If not specified all training and test sets will
 be used for the SMARTS pattern generation.
 
-**NOTE:** For now only the evaluation aspect is implemented. The training and test datasets are not
-treated seperatly regarding the value assignment. **This will be implemented very soon!**
+If you don't want the full analysis through all different location strategies you can specify a specific
+strategy with `--quick-run KEY`. The following keys are available:
+```bash
+  R1_oV   - Radius 1 only
+  R3_oV   - Radius 3 only
+  R1_V-R3 - Radius 1 search with radius 3 validation
+  R1_V-R4 - Radius 1 search with radius 4 validation
+  R1_V-R5 - Radius 1 search with radius 5 validation
+  R1_V-R6 - Radius 1 search with radius 6 validation
+```
+
+Additional parameters are:
+- `--exp-tol`: Experimental value error tolerance as a float value to decide if two experimental values
+belong to the same titratable group (default is 0.3).
+- `--max-err`: The maximum error between experimental value and the _Marvin_ prediction after assigning the values to the titratable groups at which the value is still reliable
+(default is 2.0).
 
 ## Datasets
 
